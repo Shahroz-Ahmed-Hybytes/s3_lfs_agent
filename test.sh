@@ -1,8 +1,7 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 # This file takes as an argument the .envrc file where variables are defined.
-if [ -z "$1" ]
-then
+if [ -z "$1" ]; then
   echo "Please provide the path to the .envrc file"
   exit 1
 fi
@@ -41,7 +40,7 @@ cd test && (
       dd if=/dev/urandom of=blob2.bin bs=1024 count=1024
       git add blob*.bin
       git commit -m "Adding files"
-      source "$ENVRC"
+      . "$ENVRC"
       git push origin master
       git remote -v
     ) && cd ..
@@ -51,7 +50,7 @@ cd test && (
       git config --add lfs.customtransfer.lfs-s3.path ../../lfs-s3.sh
       git config --add lfs.standalonetransferagent lfs-s3
       git config --add lfs.concurrenttransfers 2
-      source "$ENVRC"
+      . "$ENVRC"
       git reset --hard master
       git lfs pull
     )
